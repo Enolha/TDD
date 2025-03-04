@@ -163,4 +163,14 @@ class MainPoker {
 
     return compteRangs.values.contains(3) && !compteRangs.values.contains(2);
   }
+
+  bool deuxPaires() {
+    final Map<int, int> compteRangs = {};
+
+    for (var carte in cartes) {
+      compteRangs[carte.rang] = (compteRangs[carte.rang] ?? 0) + 1;
+    }
+
+    return compteRangs.values.where((count) => count == 2).length == 2;
+  }
 }

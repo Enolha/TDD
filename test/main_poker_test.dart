@@ -298,4 +298,53 @@ void main() {
       expect(main.brelan(), isFalse);
     });
   });
+  group('Deux Paires', () {
+    test('Si deux paires', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.cinq),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.deuxPaires(), isTrue);
+    });
+
+    test('Pas deux paires (une paire)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.cinq),
+        Carte(Couleur.pique, Rang.neuf),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.deuxPaires(), isFalse);
+    });
+
+    test('Pas deux paires (Brelan)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.deuxPaires(), isFalse);
+    });
+
+    test('Pas deux paires (toutes les cartes différentes)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.deuxPaires(), isFalse);
+    });
+  });
 }
