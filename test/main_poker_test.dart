@@ -89,7 +89,7 @@ void main() {
         Carte(Couleur.coeur, Rang.as),
       ]);
 
-      expect(main.Carre(), isTrue);
+      expect(main.carre(), isTrue);
     });
 
     test('Pas un carré (trois cartes identiques seulement)', () {
@@ -101,7 +101,7 @@ void main() {
         Carte(Couleur.coeur, Rang.as),
       ]);
 
-      expect(main.Carre(), isFalse);
+      expect(main.carre(), isFalse);
     });
 
     test('Pas un carré (toutes les cartes différentes', () {
@@ -113,7 +113,44 @@ void main() {
         Carte(Couleur.coeur, Rang.dix),
       ]);
 
-      expect(main.Carre(), isFalse);
+      expect(main.carre(), isFalse);
+    });
+  });
+  group('Full', () {
+    test('Si full', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.deux),
+        Carte(Couleur.coeur, Rang.deux),
+      ]);
+
+      expect(main.full(), isTrue);
+    });
+
+    test('Pas un full (juste un brelan)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.neuf),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.full(), isFalse);
+    });
+
+    test('Pas un full (toutes les cartes différentes)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.full(), isFalse);
     });
   });
 }
