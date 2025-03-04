@@ -79,4 +79,41 @@ void main() {
       });
     });
   });
+  group('Carré', () {
+    test('Si carré', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.dix),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.Carre(), isTrue);
+    });
+
+    test('Pas un carré (trois cartes identiques seulement)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.neuf),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.Carre(), isFalse);
+    });
+
+    test('Pas un carré (toutes les cartes différentes', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.Carre(), isFalse);
+    });
+  });
 }

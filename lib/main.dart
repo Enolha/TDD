@@ -92,4 +92,14 @@ class MainPoker {
 
     return true;
   }
+
+  bool Carre() {
+    final Map<int, int> compteRangs = {};
+
+    for (var carte in cartes) {
+      compteRangs[carte.rang] = (compteRangs[carte.rang] ?? 0) + 1;
+    }
+
+    return compteRangs.values.contains(4);
+  }
 }
