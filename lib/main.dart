@@ -149,8 +149,18 @@ class MainPoker {
     }
 
     final couleurUnique = cartes.first.couleur;
-    bool estQuinteFlush = cartes.every((c) => c.couleur == couleurUnique);
+    bool quinteFlush = cartes.every((c) => c.couleur == couleurUnique);
 
-    return !estQuinteFlush;
+    return !quinteFlush;
+  }
+
+  bool brelan() {
+    final Map<int, int> compteRangs = {};
+
+    for (var carte in cartes) {
+      compteRangs[carte.rang] = (compteRangs[carte.rang] ?? 0) + 1;
+    }
+
+    return compteRangs.values.contains(3) && !compteRangs.values.contains(2);
   }
 }

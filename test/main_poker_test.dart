@@ -249,4 +249,53 @@ void main() {
       expect(main.quinte(), isFalse);
     });
   });
+
+  group('Brelan', () {
+    test('Si brelan', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.carreau, Rang.huit),
+        Carte(Couleur.coeur, Rang.huit),
+        Carte(Couleur.trefle, Rang.quatre),
+        Carte(Couleur.pique, Rang.as),
+      ]);
+
+      expect(main.brelan(), isTrue);
+    });
+
+    test('Pas brelan (carré)', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.trefle, Rang.as),
+      ]);
+
+      expect(main.brelan(), isFalse);
+    });
+
+    test('Pas une brelan (deux paires)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.deux),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.brelan(), isFalse);
+    });
+    test('Pas une brelan (toutes les cartes différentes)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.brelan(), isFalse);
+    });
+  });
 }
