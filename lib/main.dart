@@ -133,12 +133,24 @@ class MainPoker {
   bool quinte() {
     final rangsTries = cartes.map((c) => c.rang).toList()..sort();
 
+    // quinte basse
+    if (rangsTries.contains(Rang.as) &&
+        rangsTries.contains(Rang.deux) &&
+        rangsTries.contains(Rang.trois) &&
+        rangsTries.contains(Rang.quatre) &&
+        rangsTries.contains(Rang.cinq)) {
+      return true;
+    }
+
     for (int i = 0; i < rangsTries.length - 1; i++) {
       if (rangsTries[i] + 1 != rangsTries[i + 1]) {
         return false;
       }
     }
 
-    return true;
+    final couleurUnique = cartes.first.couleur;
+    bool estQuinteFlush = cartes.every((c) => c.couleur == couleurUnique);
+
+    return !estQuinteFlush;
   }
 }

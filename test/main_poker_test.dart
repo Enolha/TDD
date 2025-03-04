@@ -192,7 +192,18 @@ void main() {
     });
   });
   group('Quinte', () {
-    test('Si Quinte', () {
+    test('Si Quinte (simple)', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.deux),
+        Carte(Couleur.carreau, Rang.trois),
+        Carte(Couleur.coeur, Rang.quatre),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.trefle, Rang.six),
+      ]);
+
+      expect(main.quinte(), isTrue);
+    });
+    test('Si Quinte (basse)', () {
       final main = MainPoker([
         Carte(Couleur.trefle, Rang.as),
         Carte(Couleur.carreau, Rang.deux),
@@ -203,7 +214,17 @@ void main() {
 
       expect(main.quinte(), isTrue);
     });
+    test('Si Quinte (haute)', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.carreau, Rang.valet),
+        Carte(Couleur.coeur, Rang.dame),
+        Carte(Couleur.pique, Rang.roi),
+        Carte(Couleur.trefle, Rang.as),
+      ]);
 
+      expect(main.quinte(), isTrue);
+    });
     test('Pas quinte (quinte flush)', () {
       final main = MainPoker([
         Carte(Couleur.trefle, Rang.dix),
