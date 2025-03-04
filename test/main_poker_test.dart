@@ -16,6 +16,17 @@ void main() {
         expect(main.quinteFlush(), isTrue);
       });
 
+      test('Si quinte flush (basse)', () {
+        final main = MainPoker([
+          Carte(Couleur.coeur, Rang.as),
+          Carte(Couleur.coeur, Rang.deux),
+          Carte(Couleur.coeur, Rang.trois),
+          Carte(Couleur.coeur, Rang.quatre),
+          Carte(Couleur.coeur, Rang.cinq),
+        ]);
+
+        expect(main.quinteFlush(), isTrue);
+      });
       test('Pas une quinte flush', () {
         final main = MainPoker([
           Carte(Couleur.coeur, Rang.deux),
@@ -545,6 +556,63 @@ void main() {
       ]);
 
       expect(main1.comparerMain(main2), -1);
+    });
+    test('2 cartes hautes', () {
+      final main1 = MainPoker([
+        Carte(Couleur.coeur, Rang.trois),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.pique, Rang.sept),
+        Carte(Couleur.coeur, Rang.deux),
+      ]);
+
+      final main2 = MainPoker([
+        Carte(Couleur.coeur, Rang.as),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.pique, Rang.sept),
+        Carte(Couleur.coeur, Rang.deux),
+      ]);
+
+      expect(main1.comparerMain(main2), -1);
+    });
+    test('2 Full avec brelan différent', () {
+      final fullHouse1 = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.coeur, Rang.cinq),
+      ]);
+
+      final fullHouse2 = MainPoker([
+        Carte(Couleur.coeur, Rang.neuf),
+        Carte(Couleur.carreau, Rang.neuf),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.pique, Rang.roi),
+        Carte(Couleur.coeur, Rang.roi),
+      ]);
+
+      expect(fullHouse1.comparerMain(fullHouse2), 1);
+    });
+    test('2 Full avec paire différente', () {
+      final fullHouse1 = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.coeur, Rang.cinq),
+      ]);
+
+      final fullHouse2 = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.roi),
+        Carte(Couleur.coeur, Rang.roi),
+      ]);
+
+      expect(fullHouse1.comparerMain(fullHouse2), -1);
     });
   });
 }

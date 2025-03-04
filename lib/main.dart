@@ -84,6 +84,10 @@ class MainPoker {
 
     final rangsTries = cartes.map((c) => c.rang).toList()..sort();
 
+    if (rangsTries.equals([2, 3, 4, 5, 14])) {
+      return true;
+    }
+
     for (int i = 0; i < rangsTries.length - 1; i++) {
       if (rangsTries[i] + 1 != rangsTries[i + 1]) {
         return false;
@@ -222,6 +226,19 @@ class MainPoker {
 
     if (premierScore > scoreAdverse) return 1;
     if (premierScore < scoreAdverse) return -1;
+    if (premierScore == 7 && scoreAdverse == 7) {
+      final monBrelan = getBrelan();
+      final brelanAdverse = autre.getBrelan();
+
+      if (monBrelan > brelanAdverse) return 1;
+      if (monBrelan < brelanAdverse) return -1;
+
+      final maPaire = getPaire();
+      final paireAdverse = autre.getPaire();
+
+      if (maPaire > paireAdverse) return 1;
+      if (maPaire < paireAdverse) return -1;
+    }
 
     final mesRangs =
         cartes.map((c) => c.rang).toList()..sort((a, b) => b.compareTo(a));
@@ -235,5 +252,25 @@ class MainPoker {
     }
 
     return 0;
+  }
+
+  int getBrelan() {
+    final compteRangs = <int, int>{};
+
+    for (var carte in cartes) {
+      compteRangs[carte.rang] = (compteRangs[carte.rang] ?? 0) + 1;
+    }
+
+    return compteRangs.entries.firstWhere((e) => e.value == 3).key;
+  }
+
+  int getPaire() {
+    final compteRangs = <int, int>{};
+
+    for (var carte in cartes) {
+      compteRangs[carte.rang] = (compteRangs[carte.rang] ?? 0) + 1;
+    }
+
+    return compteRangs.entries.firstWhere((e) => e.value == 2).key;
   }
 }
