@@ -347,4 +347,103 @@ void main() {
       expect(main.deuxPaires(), isFalse);
     });
   });
+  group('Paire', () {
+    test('Si une paire', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.cinq),
+        Carte(Couleur.pique, Rang.neuf),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.paire(), isTrue);
+    });
+
+    test('Pas une paire (deux paires)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.cinq),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.paire(), isFalse);
+    });
+
+    test('Pas une paire (Brelan)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.paire(), isFalse);
+    });
+
+    test('Pas une paire (toutes les cartes différentes)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.paire(), isFalse);
+    });
+  });
+  group('Carte Haute', () {
+    test('Si carte haute', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.as),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.pique, Rang.sept),
+        Carte(Couleur.coeur, Rang.deux),
+      ]);
+
+      expect(main.carteHaute(), isTrue);
+      expect(main.cartePlusHaute().rang, Rang.as);
+    });
+
+    test('Pas une carte haute (Paire)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.pique, Rang.sept),
+        Carte(Couleur.coeur, Rang.deux),
+      ]);
+
+      expect(main.carteHaute(), isFalse);
+    });
+
+    test('Pas une carte haute (Quinte)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.neuf),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.pique, Rang.sept),
+        Carte(Couleur.coeur, Rang.six),
+      ]);
+
+      expect(main.carteHaute(), isFalse);
+    });
+
+    test('Pas une carte haute (Couleur/Flush)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.as),
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.coeur, Rang.neuf),
+        Carte(Couleur.coeur, Rang.sept),
+        Carte(Couleur.coeur, Rang.deux),
+      ]);
+
+      expect(main.carteHaute(), isFalse);
+    });
+  });
 }

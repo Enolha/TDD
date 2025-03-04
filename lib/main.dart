@@ -173,4 +173,30 @@ class MainPoker {
 
     return compteRangs.values.where((count) => count == 2).length == 2;
   }
+
+  bool paire() {
+    final Map<int, int> compteRangs = {};
+
+    for (var carte in cartes) {
+      compteRangs[carte.rang] = (compteRangs[carte.rang] ?? 0) + 1;
+    }
+
+    return compteRangs.values.where((count) => count == 2).length == 1;
+  }
+
+  bool carteHaute() {
+    return !quinteFlushRoyale() &&
+        !quinteFlush() &&
+        !carre() &&
+        !full() &&
+        !flush() &&
+        !quinte() &&
+        !brelan() &&
+        !deuxPaires() &&
+        !paire();
+  }
+
+  Carte cartePlusHaute() {
+    return cartes.reduce((max, carte) => carte.rang > max.rang ? carte : max);
+  }
 }
