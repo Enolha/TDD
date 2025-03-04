@@ -40,5 +40,43 @@ void main() {
         expect(main.quinteFlush(), isFalse);
       });
     });
+
+    group('Quinte Flush Royale', () {
+      test('Si quinte flush royale', () {
+        final main = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.coeur, Rang.valet),
+          Carte(Couleur.coeur, Rang.dame),
+          Carte(Couleur.coeur, Rang.roi),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        expect(main.quinteFlushRoyale(), isTrue);
+      });
+
+      test('Quinte flush pas royale', () {
+        final main = MainPoker([
+          Carte(Couleur.coeur, Rang.neuf),
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.coeur, Rang.valet),
+          Carte(Couleur.coeur, Rang.dame),
+          Carte(Couleur.coeur, Rang.roi),
+        ]);
+
+        expect(main.quinteFlushRoyale(), isFalse);
+      });
+
+      test('Main avec des couleurs différentes', () {
+        final main = MainPoker([
+          Carte(Couleur.trefle, Rang.dix),
+          Carte(Couleur.coeur, Rang.valet),
+          Carte(Couleur.coeur, Rang.dame),
+          Carte(Couleur.coeur, Rang.roi),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        expect(main.quinteFlushRoyale(), isFalse);
+      });
+    });
   });
 }
