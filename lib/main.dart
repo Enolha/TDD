@@ -84,6 +84,7 @@ class MainPoker {
 
     final rangsTries = cartes.map((c) => c.rang).toList()..sort();
 
+    /// quinte flush basse
     if (rangsTries.equals([2, 3, 4, 5, 14])) {
       return true;
     }
