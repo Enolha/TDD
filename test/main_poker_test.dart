@@ -738,4 +738,42 @@ void main() {
       });
     });
   });
+  group('Vérification du nombre de cartes', () {
+    test('Exactement 5 cartes', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.dix),
+        Carte(Couleur.carreau, Rang.dix),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.pique, Rang.dix),
+        Carte(Couleur.coeur, Rang.as),
+      ]);
+
+      expect(main.cartes.length, equals(5));
+    });
+
+    test('Erreur si main de moins de 5 cartes', () {
+      expect(
+        () => MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.dix),
+        ]),
+        throwsArgumentError,
+      );
+    });
+
+    test('Erreur si main de plus de 5 cartes', () {
+      expect(
+        () => MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.dix),
+          Carte(Couleur.pique, Rang.dix),
+          Carte(Couleur.coeur, Rang.as),
+          Carte(Couleur.carreau, Rang.roi),
+        ]),
+        throwsArgumentError,
+      );
+    });
+  });
 }
