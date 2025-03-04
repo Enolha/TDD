@@ -120,13 +120,25 @@ class MainPoker {
 
     final rangsTries = cartes.map((c) => c.rang).toList()..sort();
 
-    bool estQuinte = true;
+    bool quinte = true;
     for (int i = 0; i < rangsTries.length - 1; i++) {
       if (rangsTries[i] + 1 != rangsTries[i + 1]) {
-        estQuinte = false;
+        quinte = false;
         break;
       }
     }
-    return !estQuinte;
+    return !quinte;
+  }
+
+  bool quinte() {
+    final rangsTries = cartes.map((c) => c.rang).toList()..sort();
+
+    for (int i = 0; i < rangsTries.length - 1; i++) {
+      if (rangsTries[i] + 1 != rangsTries[i + 1]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

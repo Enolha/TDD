@@ -191,4 +191,41 @@ void main() {
       expect(main.flush(), isFalse);
     });
   });
+  group('Quinte', () {
+    test('Si Quinte', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.as),
+        Carte(Couleur.carreau, Rang.deux),
+        Carte(Couleur.coeur, Rang.trois),
+        Carte(Couleur.pique, Rang.quatre),
+        Carte(Couleur.trefle, Rang.cinq),
+      ]);
+
+      expect(main.quinte(), isTrue);
+    });
+
+    test('Pas quinte (quinte flush)', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.trefle, Rang.sept),
+        Carte(Couleur.trefle, Rang.six),
+      ]);
+
+      expect(main.quinte(), isFalse);
+    });
+
+    test('Pas quinte (toutes les cartes différentes)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.quinte(), isFalse);
+    });
+  });
 }
