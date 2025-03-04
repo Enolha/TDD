@@ -199,4 +199,41 @@ class MainPoker {
   Carte cartePlusHaute() {
     return cartes.reduce((max, carte) => carte.rang > max.rang ? carte : max);
   }
+
+  int getScore() {
+    if (quinteFlushRoyale()) return 10;
+    if (quinteFlush()) return 9;
+    if (carre()) return 8;
+    if (full()) return 7;
+    if (flush()) return 6;
+    if (quinte()) return 5;
+    if (brelan()) return 4;
+    if (deuxPaires()) return 3;
+    if (paire()) return 2;
+    return 1;
+  }
+
+  /// 1 si la main actuelle est plus forte
+  /// -1 si l'autre main est plus forte
+  /// 0 si les deux mains sont égales
+  int comparerMain(MainPoker autre) {
+    int premierScore = getScore();
+    int scoreAdverse = autre.getScore();
+
+    if (premierScore > scoreAdverse) return 1;
+    if (premierScore < scoreAdverse) return -1;
+
+    final mesRangs =
+        cartes.map((c) => c.rang).toList()..sort((a, b) => b.compareTo(a));
+    final rangsAdverses =
+        autre.cartes.map((c) => c.rang).toList()
+          ..sort((a, b) => b.compareTo(a));
+
+    for (int i = 0; i < 5; i++) {
+      if (mesRangs[i] > rangsAdverses[i]) return 1;
+      if (mesRangs[i] < rangsAdverses[i]) return -1;
+    }
+
+    return 0;
+  }
 }
