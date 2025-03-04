@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:collection/collection.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,5 +52,44 @@ class Carte {
   @override
   String toString() {
     return 'Carte(rang: $rang, couleur: $couleur)';
+  }
+}
+
+class MainPoker {
+  final List<Carte> cartes;
+
+  MainPoker(this.cartes) {
+    if (cartes.length != 5) {
+      throw ArgumentError('Il faut exactement 5 cartes');
+    }
+  }
+
+  bool quinteFlushRoyale() {
+    final couleurUnique = cartes.first.couleur;
+    if (cartes.any((carte) => carte.couleur != couleurUnique)) {
+      return false;
+    }
+
+    final rangsTries = cartes.map((c) => c.rang).toList()..sort();
+
+    const royaleFlushRangs = [10, 11, 12, 13, 14];
+    return ListEquality().equals(rangsTries, royaleFlushRangs);
+  }
+
+  bool quinteFlush() {
+    final couleurUnique = cartes.first.couleur;
+    if (cartes.any((carte) => carte.couleur != couleurUnique)) {
+      return false;
+    }
+
+    final rangsTries = cartes.map((c) => c.rang).toList()..sort();
+
+    for (int i = 0; i < rangsTries.length - 1; i++) {
+      if (rangsTries[i] + 1 != rangsTries[i + 1]) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }
