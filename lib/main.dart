@@ -111,4 +111,22 @@ class MainPoker {
     }
     return compteRangs.values.contains(3) && compteRangs.values.contains(2);
   }
+
+  bool flush() {
+    final couleurUnique = cartes.first.couleur;
+    if (cartes.any((carte) => carte.couleur != couleurUnique)) {
+      return false;
+    }
+
+    final rangsTries = cartes.map((c) => c.rang).toList()..sort();
+
+    bool estQuinte = true;
+    for (int i = 0; i < rangsTries.length - 1; i++) {
+      if (rangsTries[i] + 1 != rangsTries[i + 1]) {
+        estQuinte = false;
+        break;
+      }
+    }
+    return !estQuinte;
+  }
 }

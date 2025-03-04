@@ -153,4 +153,42 @@ void main() {
       expect(main.full(), isFalse);
     });
   });
+
+  group('Couleur/flush', () {
+    test('Si couleur', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.trois),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.trefle, Rang.cinq),
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.trefle, Rang.roi),
+      ]);
+
+      expect(main.flush(), isTrue);
+    });
+
+    test('Pas une couleur/flush (quinte flush)', () {
+      final main = MainPoker([
+        Carte(Couleur.trefle, Rang.dix),
+        Carte(Couleur.trefle, Rang.neuf),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.trefle, Rang.sept),
+        Carte(Couleur.trefle, Rang.six),
+      ]);
+
+      expect(main.flush(), isFalse);
+    });
+
+    test('Pas une couleur/flush (toutes les cartes différentes)', () {
+      final main = MainPoker([
+        Carte(Couleur.coeur, Rang.deux),
+        Carte(Couleur.carreau, Rang.quatre),
+        Carte(Couleur.trefle, Rang.six),
+        Carte(Couleur.pique, Rang.huit),
+        Carte(Couleur.coeur, Rang.dix),
+      ]);
+
+      expect(main.flush(), isFalse);
+    });
+  });
 }
