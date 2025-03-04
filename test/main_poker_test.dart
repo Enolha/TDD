@@ -478,7 +478,6 @@ void main() {
 
       expect(quinteFlushRoyale.comparerMain(quinteFlush), 1);
     });
-
     test('Carré vs Full', () {
       final carre = MainPoker([
         Carte(Couleur.coeur, Rang.dix),
@@ -576,43 +575,167 @@ void main() {
 
       expect(main1.comparerMain(main2), -1);
     });
-    test('2 Full avec brelan différent', () {
-      final fullHouse1 = MainPoker([
-        Carte(Couleur.coeur, Rang.dix),
-        Carte(Couleur.carreau, Rang.dix),
-        Carte(Couleur.trefle, Rang.dix),
-        Carte(Couleur.pique, Rang.cinq),
-        Carte(Couleur.coeur, Rang.cinq),
-      ]);
+    group('Comparaison de 2 full', () {
+      test('2 Full avec brelan différent', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.dix),
+          Carte(Couleur.pique, Rang.cinq),
+          Carte(Couleur.coeur, Rang.cinq),
+        ]);
 
-      final fullHouse2 = MainPoker([
-        Carte(Couleur.coeur, Rang.neuf),
-        Carte(Couleur.carreau, Rang.neuf),
-        Carte(Couleur.trefle, Rang.neuf),
-        Carte(Couleur.pique, Rang.roi),
-        Carte(Couleur.coeur, Rang.roi),
-      ]);
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.neuf),
+          Carte(Couleur.carreau, Rang.neuf),
+          Carte(Couleur.trefle, Rang.neuf),
+          Carte(Couleur.pique, Rang.roi),
+          Carte(Couleur.coeur, Rang.roi),
+        ]);
 
-      expect(fullHouse1.comparerMain(fullHouse2), 1);
+        expect(main1.comparerMain(main2), 1);
+      });
+      test('2 Full avec paire différente', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.dix),
+          Carte(Couleur.pique, Rang.cinq),
+          Carte(Couleur.coeur, Rang.cinq),
+        ]);
+
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.dix),
+          Carte(Couleur.pique, Rang.roi),
+          Carte(Couleur.coeur, Rang.roi),
+        ]);
+
+        expect(main1.comparerMain(main2), -1);
+      });
     });
-    test('2 Full avec paire différente', () {
-      final fullHouse1 = MainPoker([
+    test('2 quintes', () {
+      final main1 = MainPoker([
         Carte(Couleur.coeur, Rang.dix),
-        Carte(Couleur.carreau, Rang.dix),
-        Carte(Couleur.trefle, Rang.dix),
-        Carte(Couleur.pique, Rang.cinq),
+        Carte(Couleur.carreau, Rang.neuf),
+        Carte(Couleur.trefle, Rang.huit),
+        Carte(Couleur.pique, Rang.sept),
+        Carte(Couleur.coeur, Rang.six),
+      ]);
+
+      final main2 = MainPoker([
+        Carte(Couleur.coeur, Rang.neuf),
+        Carte(Couleur.carreau, Rang.huit),
+        Carte(Couleur.trefle, Rang.sept),
+        Carte(Couleur.pique, Rang.six),
         Carte(Couleur.coeur, Rang.cinq),
       ]);
 
-      final fullHouse2 = MainPoker([
-        Carte(Couleur.coeur, Rang.dix),
-        Carte(Couleur.carreau, Rang.dix),
-        Carte(Couleur.trefle, Rang.dix),
-        Carte(Couleur.pique, Rang.roi),
-        Carte(Couleur.coeur, Rang.roi),
-      ]);
+      expect(main1.comparerMain(main2), 1);
+    });
 
-      expect(fullHouse1.comparerMain(fullHouse2), -1);
+    group('Comparaison de 2 Paires', () {
+      test('Paire la plus haute', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.cinq),
+          Carte(Couleur.pique, Rang.cinq),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.neuf),
+          Carte(Couleur.carreau, Rang.neuf),
+          Carte(Couleur.trefle, Rang.huit),
+          Carte(Couleur.pique, Rang.huit),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        expect(main1.comparerMain(main2), 1);
+      });
+
+      test('Comparaison sur la seconde paire', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.neuf),
+          Carte(Couleur.pique, Rang.neuf),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.huit),
+          Carte(Couleur.pique, Rang.huit),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        expect(main1.comparerMain(main2), 1);
+      });
+
+      test('Comparaison sur la carte restante', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.neuf),
+          Carte(Couleur.pique, Rang.neuf),
+          Carte(Couleur.coeur, Rang.roi),
+        ]);
+
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.neuf),
+          Carte(Couleur.pique, Rang.neuf),
+          Carte(Couleur.coeur, Rang.huit),
+        ]);
+
+        expect(main1.comparerMain(main2), 1);
+      });
+    });
+    group('Comparaison de 1 Paires', () {
+      test('Paire la plus haute', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.huit),
+          Carte(Couleur.pique, Rang.cinq),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.neuf),
+          Carte(Couleur.carreau, Rang.neuf),
+          Carte(Couleur.trefle, Rang.huit),
+          Carte(Couleur.pique, Rang.six),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        expect(main1.comparerMain(main2), 1);
+      });
+
+      test('Comparaison sur la carte restante', () {
+        final main1 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.huit),
+          Carte(Couleur.pique, Rang.cinq),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        final main2 = MainPoker([
+          Carte(Couleur.coeur, Rang.dix),
+          Carte(Couleur.carreau, Rang.dix),
+          Carte(Couleur.trefle, Rang.huit),
+          Carte(Couleur.pique, Rang.roi),
+          Carte(Couleur.coeur, Rang.as),
+        ]);
+
+        expect(main1.comparerMain(main2), -1);
+      });
     });
   });
 }
