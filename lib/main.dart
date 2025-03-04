@@ -41,3 +41,15 @@ class Rang {
   final int value;
   const Rang(this.value);
 }
+
+class Carte {
+  final String couleur;
+  final int rang;
+
+  Carte(this.couleur, this.rang);
+
+  @override
+  String toString() {
+    return 'Carte(rang: $rang, couleur: $couleur)';
+  }
+}
